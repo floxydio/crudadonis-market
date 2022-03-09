@@ -15,5 +15,27 @@ export default class UsersController {
             data : inputUser
         })
     }
+    public async login({request,response} : HttpContextContract) {
+        const inputLogin = {
+            username: request.input("username"),
+            password: request.input("password")
+        }
+        try {
+
+        await Database.from("user").where("username", inputLogin.username).where("password", inputLogin.password).first()
+        return response.status(200).json({
+            status : 200,
+            data : inputLogin,
+            message : 'Successfully Login'
+        })
+        } catch (err) {
+            return response.status(400).json({
+                status : 400,
+                message : err.message
+            })
+            
+        }
+
+    }
     
 }

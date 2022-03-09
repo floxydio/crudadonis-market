@@ -19,34 +19,30 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import Database from '@ioc:Adonis/Lucid/Database'
 import MarketsController from 'App/Controllers/Http/MarketsController'
 import UsersController from 'App/Controllers/Http/UsersController'
 
 Route.group(() => {
-
-  Route.get("/users", async () => {
-    return Database.from("user").select("*")
-  })
-
-  Route.get("/users/:id", async ({ params }) => {
-    return Database.from("user").where("id", params.id).first()
-  })
-
-
   Route.post("/create/users", async (ctx) => {
     return new UsersController().create(ctx)
   })
-  Route.delete("/users/delete/:id", async ({ params }) => {
-    return Database.from("user").where("id", params.id).delete()
+  Route.post("/login", async (ctx) => {
+    return new UsersController().login(ctx)
   })
+
+  // Market
 
   Route.post("/create/market", async (ctx) => {
     return new MarketsController().create(ctx)
   })
-
   Route.get("/market", async (ctx) => {
     return new MarketsController().findalldata(ctx)
+  })
+  Route.delete("/market/:id", async (ctx) => {
+    return new MarketsController().delete(ctx)
+  })
+  Route.put("/market/edit/:id", async (ctx) => {
+    return new MarketsController().edit(ctx)
   })
 }).prefix("v2")
 
