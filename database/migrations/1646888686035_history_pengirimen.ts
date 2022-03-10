@@ -1,16 +1,20 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Markets extends BaseSchema {
-  protected tableName = 'markets'
+export default class HistoryPengirimen extends BaseSchema {
+  protected tableName = 'history_pengirimen'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
-      table.string('nama').notNullable()
-      table.string('kota')
-      table.string('pengirim'),
+      table.increments('id')
+      table.string("nama")
+      table.string("barang")
       table.string("status")
-      table.integer('harga')
+      table.string("ke")
+      table.string("dari")
+
+      /**
+       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
+       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

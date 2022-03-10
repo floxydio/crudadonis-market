@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import HistoryPengirimenController from 'App/Controllers/Http/HistoryPengirimenController'
 import MarketsController from 'App/Controllers/Http/MarketsController'
 import UsersController from 'App/Controllers/Http/UsersController'
 
@@ -43,6 +44,19 @@ Route.group(() => {
   })
   Route.put("/market/edit/:id", async (ctx) => {
     return new MarketsController().edit(ctx)
+  })
+
+  // Pengiriman
+  Route.get("/allhistory", async(ctx) => {
+    return new HistoryPengirimenController().findAllData(ctx)
+  })
+
+  Route.post("/history", async(ctx) => {
+    return new HistoryPengirimenController().create(ctx)
+  })
+
+  Route.put("/change-status/history/:id", async(ctx) => {
+    return new HistoryPengirimenController().updateStatus(ctx)
   })
 }).prefix("v2")
 
